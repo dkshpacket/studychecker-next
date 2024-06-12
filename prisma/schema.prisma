@@ -64,7 +64,7 @@ model User {
   sessions Session[]
 }
 
-model Streak {
+model Streak { // 1 per day
   id Int @id @default(autoincrement())
   date DateTime
   achievers User[]
