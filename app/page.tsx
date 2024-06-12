@@ -58,7 +58,7 @@ export default function Home() {
           >
             <Streak studied> 월 </Streak>
             <Streak studied> 화 </Streak>
-            <Streak studied> 수 </Streak>
+            <Streak > 수 </Streak>
             <Streak studied> 목 </Streak>
             <Streak future> 금 </Streak>
             <Streak future> 토 </Streak>
