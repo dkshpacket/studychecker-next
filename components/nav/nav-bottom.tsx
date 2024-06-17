@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import NavOption from "./nav-option";
-import { Home, LampDesk, MessageCircleMore, Search, Settings } from "lucide-react";
+import { Home, LampDesk, MessageCircleMore, Search, Settings, Timer } from "lucide-react";
  
 
 const dontshow = [
@@ -12,7 +12,7 @@ const dontshow = [
   "/study",
 ];
 
-export const Nav = () => {
+export const NavBottom = () => {
   const currentPath = usePathname();
   return (
     <>
@@ -24,15 +24,16 @@ export const Nav = () => {
           <NavOption icon={LampDesk} href="/study">
             자습실 출석
           </NavOption>
+          <NavOption icon={Timer} href="/timer">
+            타이머
+          </NavOption>
           <NavOption icon={Search} href="/search">
             검색
           </NavOption>
           <NavOption icon={MessageCircleMore} href="/community">
             커뮤니티
           </NavOption>
-          <NavOption icon={Settings} href="/settings">
-            설정
-          </NavOption>
+         
         </nav>
       )}
     </>

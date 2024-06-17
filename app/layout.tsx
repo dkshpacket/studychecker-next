@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { Nav } from "@/components/nav";
+import { NavBottom } from "@/components/nav/nav-bottom";
+import {NavTop} from "@/components/nav/nav-top" 
 
-const inter = Inter({ subsets: ["latin"] });
+const wantedsans = localFont({ src: '../fonts/WantedSansVariable.woff2'});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,9 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "max-w-4xl mx-auto p-6")}>
+      <body className={cn(wantedsans.className, "max-w-4xl mx-auto px-6 pb-24")}>
+        <NavTop/>
         {children}
-        <Nav/>
+        <NavBottom/>
       </body>
     </html>
   );

@@ -1,15 +1,16 @@
 import { Streak } from "@/components/streak";
 import { cn } from "@/lib/utils";
+// import { Clock } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <main>
       <main className="space-y-4">
-        <div className="flex justify-between mb-8 px-4 items-center">
-          <h1 className="text-4xl italic font-extrabold">
-            단붕이 생활
-            <br /> 도우미 V1
+        {/* <div className="flex justify-between mb-8 px-4 items-center">
+          <h1 className="text-4xl ">
+            단붕이  <span className="font-bold"> 생활
+              <br /> 도우미</span> V1
           </h1>
 
           <img
@@ -17,14 +18,19 @@ export default function Home() {
             src="https://avatars.githubusercontent.com/u/31413538?v=4"
             alt="단붕이"
           />
+        </div> */}
+
+        <div>
+
+
         </div>
         <div className="p-6 border rounded-xl space-y-4 bg-white">
           <div className="flex justify-between">
-            <h2 className="font-bold text-gray-600">현재 시각</h2>
-            <div className="text-sm text-gray-700">4월 9일 · 10시 37분</div>
+            <h2 className="font-bold text-gray-600 flex items-center gap-1" >현재 시각</h2>
+            <div className="text-sm text-gray-700">06월 13일 · 09시 53분</div>
           </div>
 
-          <h2 className="text-2xl font-bold">자율학습 3교시</h2>
+          <h2 className="text-2xl font-bold">자율학습 0교시</h2>
           <div>
             <div className="h-3 w-full bg-indigo-100 overflow-hidden rounded">
               <div className="h-full w-2/3 bg-indigo-500 rounded"></div>
@@ -49,7 +55,7 @@ export default function Home() {
 
         <div className="p-6 border rounded-xl space-y-4 bg-white">
           <h2 className="font-bold text-gray-600">자율학습 스트릭</h2>
-          <div className="text-2xl font-bold">현재 10일</div>
+          <div className="text-2xl font-bold">현재 0일</div>
 
           <div
             className={cn(
@@ -59,17 +65,28 @@ export default function Home() {
             <Streak studied> 월 </Streak>
             <Streak studied> 화 </Streak>
             <Streak > 수 </Streak>
-            <Streak studied> 목 </Streak>
+            <Streak future> 목 </Streak>
             <Streak future> 금 </Streak>
             <Streak future> 토 </Streak>
           </div>
         </div>
 
         <div className="p-6 border bg-white rounded-xl gap-2">
-          대학수학능력시험
+          <h2 className="font-bold text-gray-600 flex items-center gap-1 ">데일리 단붕 퀘스트</h2>
+
+          <div className="flex gap-2 mt-2">
+            <div className="border font-bold  rounded-md aspect-square p-4 ">
+              출석하기
+            </div>
+          </div>
+
+        </div>
+
+        <div className="p-6 border bg-white rounded-xl gap-2">
+          <h2 className="font-bold text-gray-600">  대학수학능력시험</h2>
           <div className="flex items-baseline justify-between">
             <div>
-              <div className="font-bold text-4xl mt-1">D-670</div>
+              <div className="font-bold text-4xl mt-1">D-518</div>
             </div>
             <div className="text-gray-700">2025년 11월 13일</div>
           </div>
