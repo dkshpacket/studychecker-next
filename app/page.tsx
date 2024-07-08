@@ -20,13 +20,12 @@ export default function Home() {
           />
         </div> */}
 
-        <div>
-
-
-        </div>
+        <div></div>
         <div className="p-6 border rounded-xl space-y-4 bg-white">
           <div className="flex justify-between">
-            <h2 className="font-bold text-gray-600 flex items-center gap-1" >현재 시각</h2>
+            <h2 className="font-bold text-gray-600 flex items-center gap-1">
+              현재 시각
+            </h2>
             <div className="text-sm text-gray-700">06월 13일 · 09시 53분</div>
           </div>
 
@@ -64,7 +63,7 @@ export default function Home() {
           >
             <Streak studied> 월 </Streak>
             <Streak studied> 화 </Streak>
-            <Streak > 수 </Streak>
+            <Streak> 수 </Streak>
             <Streak future> 목 </Streak>
             <Streak future> 금 </Streak>
             <Streak future> 토 </Streak>
@@ -72,21 +71,22 @@ export default function Home() {
         </div>
 
         <div className="p-6 border bg-white rounded-xl gap-2">
-          <h2 className="font-bold text-gray-600 flex items-center gap-1 ">데일리 단붕 퀘스트</h2>
+          <h2 className="font-bold text-gray-600 flex items-center gap-1 ">
+            데일리 단붕 퀘스트
+          </h2>
 
           <div className="flex gap-2 mt-2">
             <div className="border font-bold  rounded-md aspect-square p-4 ">
               출석하기
             </div>
           </div>
-
         </div>
 
         <div className="p-6 border bg-white rounded-xl gap-2">
-          <h2 className="font-bold text-gray-600">  대학수학능력시험</h2>
+          <h2 className="font-bold text-gray-600">2024 대학수학능력시험</h2>
           <div className="flex items-baseline justify-between">
             <div>
-              <div className="font-bold text-4xl mt-1">D-518</div>
+              <div className="font-bold text-4xl mt-1">D-129</div>
             </div>
             <div className="text-gray-700">2025년 11월 13일</div>
           </div>

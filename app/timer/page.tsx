@@ -1,87 +1,80 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-
+import { useEffect, useMemo, useState } from "react";
+import { createTimeModel, useTimeModel } from "react-compound-timer";
 const Timer = () => {
-    const [timeLeft, setTimeLeft] = useState(0) // in secs
-    const [timeoutId, setTimeoutId] = useState<number | null>(null)
+  const [secondsLeft, setSecondsLeft] = useState(0);
 
+  const timer = useMemo(
+    () =>
+      createTimeModel({
+        initialTime: secondsLeft * 1000,
+        direction: "backward",
+        startImmediately: false,
+      }),
+    [secondsLeft]
+  );
 
-    const interval = 1000; // milliseconds
-    let expected = Date.now() + interval;
+  const { value, start, stop, reset } = useTimeModel(timer);
 
-    function step() {
-        const dt = Date.now() - expected; // Calculate drift time
-        // Do what needs to be done (e.g., update state, perform actions)
-        setTimeLeft(prevTime => prevTime - 1); // Update elapsed time in seconds
+  return (
+    <div>
+      <h1 className="font-bold text-2xl text-center text-dankook transition hover:rotate-180 w-fit mx-auto  font-red-500">
+        단붕타임
+      </h1>
 
-        expected += interval;
-        window.setTimeout(step, Math.max(0, interval - dt)); // Adjust interval based on drift
-    }
-    const startTimer = () => {
-        const id = window.setTimeout(step, interval);
-        setTimeoutId(id);
-    };
+      <div className="text-4xl font-extrabold text-center mt-4 whitespace-nowrap">
+        {value.h}시간 {value.m}분 {value.s}초
+      </div>
+      <div className="flex gap-4 text-4xl mt-12 mx-auto justify-center">
+        <button
+          onClick={() => {
+            setSecondsLeft((t) => t + 60);
+          }}
+          className=" w-40 border  transition hover:scale-150 hover:bg-neutral-200 hover:shadow-xl bg-neutral-100 px-8 rounded-full font-bold p-4"
+        >
+          1분
+        </button>
 
+        <button
+          onClick={() => {
+            setSecondsLeft((t) => t + 10 * 60);
+          }}
+          className="w-40 border  transition hover:scale-150 hover:bg-neutral-200 hover:shadow-xl bg-neutral-100 px-8 rounded-full font-bold p-4"
+        >
+          10분
+        </button>
 
-    const handleClear = () => {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-        setTimeLeft(0);
-        expected = Date.now() + interval;
-    };
+        <button
+          onClick={() => {
+            setSecondsLeft((t) => t + 60 * 60);
+          }}
+          className="w-40 border transition hover:scale-150  hover:bg-neutral-200 hover:shadow-xl bg-neutral-100 px-8 rounded-full font-bold p-4"
+        >
+          1시간
+        </button>
+      </div>
+      {secondsLeft != 0 && (
+        <button
+          onClick={() => {
+            start();
+          }}
+          className=" mt-16 mx-auto block w-50  border transition border-green-300 hover:scale-150 hover:bg-green-300 hover:shadow-2xl bg-green-200 px-12 rounded-full text-7xl font-bold p-6"
+        >
+          {secondsLeft != 0 ? "고고씽" : "타임스또뿌!"}
+        </button>
+      )}
 
-    return (
-        <div>
-            <h1 className="font-bold text-6xl text-center text-dankook transition hover:rotate-180 w-fit mx-auto  font-red-500">
-                단붕타임
-            </h1>
-
-
-            <div className="text-9xl font-extrabold text-center mt-4">
-                {Math.floor(timeLeft / 3600)}시간    {Math.floor(timeLeft / 60 % 60)}분 {Math.floor(timeLeft % 60)}초
-            </div>
-            <div className="flex gap-4 text-4xl mt-12 mx-auto justify-center">
-                <button onClick={() => {
-                    setTimeLeft(t => t + 60)
-
-
-                }} className=" w-40 border  transition hover:scale-150 hover:bg-neutral-200 hover:shadow-xl bg-neutral-100 px-8 rounded-full font-bold p-4">
-                    1분
-                </button>
-
-                <button onClick={() => {
-                    setTimeLeft(t => t + 600)
-
-
-                }} className="w-40 border  transition hover:scale-150 hover:bg-neutral-200 hover:shadow-xl bg-neutral-100 px-8 rounded-full font-bold p-4">
-                    10분
-                </button>
-
-                <button onClick={() => {
-                    setTimeLeft(t => t + 3600)
-
-
-                }} className="w-40 border transition hover:scale-150  hover:bg-neutral-200 hover:shadow-xl bg-neutral-100 px-8 rounded-full font-bold p-4">
-                    1시간
-                </button>
-
-            </div>
-            <button onClick={() => {
-                startTimer()
-
-            }} className=" mt-16 mx-auto block w-50  border transition border-green-300 hover:scale-150 hover:bg-green-300 hover:shadow-2xl bg-green-200 px-12 rounded-full text-7xl font-bold p-6">
-                {timeoutId == null ? '고고씽' : '타임스또뿌!'}
-            </button>
-
-            <button onClick={() => {
-                handleClear()
-
-            }} className="mt-4 hover:text-6xl hover:text-white bg-red-500 w-full rounded-full">
-                retry
-            </button>
-        </div>
-    )
-}
-export default Timer
+      <button
+        onClick={() => {
+          setSecondsLeft(0);
+          reset();
+        }}
+        className="mt-4 hover:text-2xl hover:text-white bg-red-500 w-full rounded-full"
+      >
+        retry
+      </button>
+    </div>
+  );
+};
+export default Timer;
