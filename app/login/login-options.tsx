@@ -15,7 +15,7 @@ export const LoginOptions = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    await signIn("email", { email });
+    await signIn("resend", { email });
     setIsLoading(false);
   }
 

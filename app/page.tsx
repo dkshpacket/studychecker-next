@@ -6,13 +6,13 @@ import Image from "next/image";
 import Quests from "./Quests";
 import TimeInfo from "./TimeInfo";
 import Calender from "./Calender";
-import { getServerSession } from "next-auth"; 
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const session = await getServerSession()
+  const session = await auth();
   if (!session?.user) {
-    redirect('/login')
+    redirect("/login");
   }
 
   return (

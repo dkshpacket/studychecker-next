@@ -1,15 +1,15 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import { db } from "@/lib/db";
 import { sendVerificationRequest } from "@/emails/sendVerificationEmail";
 
-export const authOptions: NextAuthOptions = {
+import Resend from "next-auth/providers/resend";
+
+export const authOptions = {
   adapter: PrismaAdapter(db),
-  session: {
-    strategy: "jwt",
-  },
+
   pages: {
     signIn: "/login",
     verifyRequest: "/auth/verify-request",
@@ -19,9 +19,8 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
-    EmailProvider({
-      name: "resend",
-      server: "",
+    Resend({
+      apiKey: process.env.RESEND_SECRET as string,
       from: "auth@kaiwa.jcde.xyz",
       sendVerificationRequest,
     }),
@@ -58,5 +57,7 @@ export const authOptions: NextAuthOptions = {
         picture: dbUser.image,
       };
     },
-  }
-}
+  },
+};
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
