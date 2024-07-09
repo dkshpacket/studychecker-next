@@ -18,7 +18,7 @@ import {
 import * as React from "react";
 
 export const VerificationEmail = ({ url }: { url: string }) => {
-  const previewText = `단대소고 홈페이지에 로그인하세요.`;
+  const previewText = `단붕이 생활 도우미에 로그인하세요.`;
 
   return (
     <Html>

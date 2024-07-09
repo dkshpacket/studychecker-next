@@ -9,17 +9,18 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react";
+import { HandCoins, LogOut, PlusCircle, Settings, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useRouter } from "next/navigation";
 
 export const NavTop = () => {
   const { data: session, status } = useSession();
-
+const router = useRouter()
   return (
     <nav
-      className={`py-6 px-2 text-xl font-medium  flex  items-center justify-between`}
+      className={`py-4 px-2 text-xl font-medium  flex  items-center justify-between`}
     >
       <Link href="/">
         단붕이 <span className="font-bold">생활 도우미</span>
@@ -27,12 +28,13 @@ export const NavTop = () => {
 
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger className="outline-none">
-          <Avatar className="h-8 w-8 select-none ">
+          <Avatar className="h-10 w-10 select-none border ">
             <AvatarImage
+              className="bg-white"
               src={session?.user?.image as string}
               alt={session?.user?.name || "User"}
             />
-            <AvatarFallback>IO</AvatarFallback>
+            <AvatarFallback>{session?.user?.name || session?.user?.email?.slice(0, 2)}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
@@ -51,32 +53,24 @@ export const NavTop = () => {
             <DropdownMenuItem>
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <CreditCard className="mr-2 h-4 w-4" />
-              <span>Billing</span>
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+              <HandCoins className="mr-2 h-4 w-4" />
+              <span>Donate</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Settings className="mr-2 h-4 w-4" />
               <span>Settings</span>
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <PlusCircle className="mr-2 h-4 w-4" />
-              <span>New Team</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
-              signOut();
+              signOut()
             }}
           >
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
