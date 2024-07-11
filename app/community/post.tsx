@@ -1,8 +1,22 @@
-export const Post = ({ title, desc }) => {
+import { User } from "@prisma/client";
+import { categories } from "./page";
+import Link from "next/link";
+
+export const Post: React.FC<{
+  post: any;
+}> = ({ post }) => {
   return (
-    <div className="py-4">
-      <h2 className="font-semibold">{title}</h2>
-      <p className="text-sm">{desc}</p>
-    </div>
+    <Link
+      href={`/community/${post.id}`}
+      className="py-3 flex gap-3  items-center "
+    >
+      <div className=" text-gray-400">
+        {categories[post.category as "chat" | "question" | "study"]}
+      </div>
+      <div className=" font-semibold">{post.title}</div>
+      <div className="ml-auto text-gray-400">
+        {post.author?.name ?? post.author?.email}
+      </div>
+    </Link>
   );
 };

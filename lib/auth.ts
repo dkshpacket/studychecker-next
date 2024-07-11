@@ -1,5 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
+
+import "next-auth/jwt";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import { db } from "@/lib/db";
@@ -32,6 +34,7 @@ export const authOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
+        session.user.admin = token.admin;
       }
 
       return session;
@@ -55,9 +58,24 @@ export const authOptions = {
         name: dbUser.name,
         email: dbUser.email,
         picture: dbUser.image,
+        admin: dbUser.admin,
       };
     },
   },
-};
+} satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      admin: boolean;
+    };
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    admin?: boolean;
+  }
+}

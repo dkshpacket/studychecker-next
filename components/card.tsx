@@ -6,6 +6,8 @@ export const Card: React.FC<{ children: ReactNode; className?: string }> = ({
   className,
 }) => {
   return (
-    <div className={cn(`rounded-xl bg-white p-6`, className)}>{children}</div>
+    <div className={cn(`rounded-xl  bg-white px-6 py-5`, className)}>
+      {children}
+    </div>
   );
 };

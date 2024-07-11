@@ -3,7 +3,7 @@ import moment from 'moment'
 
 const Calender = () => (
     <div className="p-8   bg-white rounded-xl gap-2">
-        <h2 className="font-bold text-gray-600">2024 대학수학능력시험</h2>
+        <h2 className="font-bold text-gray-600">2025학년도 대학수학능력시험</h2>
         <div className="flex items-baseline justify-between">
             <div>
                 <div className="font-bold text-4xl mt-1">D-

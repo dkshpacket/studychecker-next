@@ -58,13 +58,53 @@ model User {
   admin         Boolean   @default(false)
 
   Streaks Streak[]
+  Post    Post[]   @relation(name: "UserPosts")
 
   accounts Account[]
   sessions Session[]
+
+  gaechuedPosts Post[]    @relation(name: "UserGaechuedPosts")
+  Comment       Comment[]
 }
 
 model Streak {
   id        Int      @id @default(autoincrement())
   date      DateTime
   achievers User[]
+}
+
+model Post {
+  id      Int    @id @default(autoincrement())
+  title   String
+  content String
+
+  createdAt DateTime @default(now())
+
+  category String
+
+  author   User? @relation(name: "UserPosts", fields: [authorId], references: [id])
+  authorId Int?
+
+  gaechuedBy User[] @relation(name: "UserGaechuedPosts")
+
+  deleted  Boolean   @default(false)
+  comments Comment[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  content String
+
+  createdAt DateTime @default(now())
+
+  author   User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId Int
+
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+
+  comments Comment[] @relation("children")
+
+  parent   Comment? @relation("children", fields: [parentId], references: [id])
+  parentId Int?
 }

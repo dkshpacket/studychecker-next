@@ -8,6 +8,7 @@ import TimeInfo from "./TimeInfo";
 import Calender from "./Calender";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
 
 export default async function Home() {
   const session = await auth();
@@ -18,19 +19,6 @@ export default async function Home() {
   return (
     <main>
       <main className="space-y-4">
-        {/* <div className="flex justify-between mb-8 px-4 items-center">
-          <h1 className="text-4xl ">
-            단붕이  <span className="font-bold"> 생활
-              <br /> 도우미</span> V1
-          </h1>
-
-          <img
-            className="h-16 shadow-lg shadow-indigo-100 w-16 rounded-full"
-            src="https://avatars.githubusercontent.com/u/31413538?v=4"
-            alt="단붕이"
-          />
-        </div> */}
-
         <TimeInfo />
 
         <div className="p-6 bg-white   rounded-xl">

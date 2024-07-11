@@ -1,24 +1,18 @@
 "use client";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { HandCoins, LogOut, PlusCircle, Settings, User } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Skeleton } from "../ui/skeleton";
+import { auth } from "@/lib/auth";
+import { UserMenu } from "./user-menu";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export const NavTop = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
-  console.log(session, status);
+  const path = usePathname();
+
+  if (path === "/onboarding") {
+    return null;
+  }
 
   return (
     <nav
@@ -27,68 +21,12 @@ export const NavTop = () => {
       <Link href="/">
         단붕이 <span className="font-bold">생활 도우미</span>
       </Link>
-      {status == "authenticated" && (
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger className="outline-none">
-            <Avatar className="h-10 w-10 select-none border ">
-              <AvatarImage
-                className="bg-white"
-                src={session?.user?.image as string}
-                alt={session?.user?.name || "User"}
-              />
-              <AvatarFallback>
-                {session?.user?.name || session?.user?.email?.slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end" forceMount>
-            <DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  {session?.user?.name}
-                </p>
-                <p className="text-xs leading-none text-muted-foreground">
-                  {session?.user?.email}
-                </p>
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>프로필</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <HandCoins className="mr-2 h-4 w-4" />
-                <span>기부하기</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>설정</span>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="group"
-              onClick={() => {
-                signOut();
-              }}
-            >
-              <LogOut className="mr-2 h-4 w-4 group-hover:text-red-500" />
-              <span className="group-hover:text-red-500">로그아웃</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
+      {session && <UserMenu session={session} />}
 
-      {status == "unauthenticated" && (
+      {!session && (
         <Link href="/login" className="text-sm">
           로그인
         </Link>
-      )}
-
-      {status == "loading" && !session && (
-        <Skeleton className="h-10 w-10 rounded-full" />
       )}
     </nav>
   );
