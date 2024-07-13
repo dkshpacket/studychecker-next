@@ -5,8 +5,7 @@ import { db } from "@/lib/db";
 import { checkBannedWords } from "@/lib/filter";
 import { redirect } from "next/navigation";
 
-export const submitPost = async (prevState, formData) => {
-  console.log(formData);
+export const submitPost = async (_: any, formData: FormData) => {
   const session = await auth();
 
   if (!session) {
@@ -17,7 +16,9 @@ export const submitPost = async (prevState, formData) => {
     return "제목과 내용을 입력해주세요.";
   }
 
-  if (!["chat", "question", "study"].includes(formData.get("category"))) {
+  if (
+    !["chat", "question", "study"].includes(formData.get("category") as string)
+  ) {
     return "카테고리를 선택해주세요";
   }
   try {

@@ -1,7 +1,7 @@
 'use client'
 import moment from 'moment'
 
-const Calender = () => (
+const Calendar = () => (
     <div className="p-8   bg-white rounded-xl gap-2">
         <h2 className="font-bold text-gray-600">2025학년도 대학수학능력시험</h2>
         <div className="flex items-baseline justify-between">
@@ -15,4 +15,4 @@ const Calender = () => (
     </div>
 )
 
-export default Calender
+export default Calendar

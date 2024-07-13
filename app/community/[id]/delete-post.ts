@@ -3,7 +3,7 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 
-export const deletePost = async (postId) => {
+export const deletePost = async (postId: number) => {
   const session = await auth();
 
   console.log(session);

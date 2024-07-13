@@ -1,4 +1,4 @@
-export function checkBannedWords(word) {
+export function checkBannedWords(word: string) {
   let arrStopWord = null;
 
   let allowed = ["시발점"];
@@ -10,6 +10,7 @@ export function checkBannedWords(word) {
     "배철호",
     "임별",
     "유재청",
+    "조은미",
     "유종민",
     "정희수",
     "변요한",
@@ -672,11 +673,15 @@ export function checkBannedWords(word) {
     "송유준",
     "안지호",
     "김태일 탈모",
+    
   ];
   if (arrStopWord.length > 0) {
     word = word.toLowerCase();
     for (let i = 0; i < arrStopWord.length; i++) {
-      if (word.indexOf(arrStopWord[i].toLowerCase()) > -1) {
+      if (
+        word.indexOf(arrStopWord[i].toLowerCase()) > -1 &&
+        !allowed.includes(arrStopWord[i].toLowerCase())
+      ) {
         throw new Error(
           "[" + arrStopWord[i] + "] 는(은) 등록할 수 없는 단어입니다."
         );

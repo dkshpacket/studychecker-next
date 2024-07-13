@@ -1,10 +1,13 @@
+import { Comment as CommentType } from "@prisma/client";
 import moment from "moment";
 
-export const Comment = ({ comment }) => {
+export const Comment: React.FC<{
+  comment: any;
+}> = ({ comment }) => {
   return (
     <div className="py-3 ">
       <div className="text-gray-600 text-xs">
-        {comment.author?.name ?? comment.author.username}
+        {comment.author?.name ?? comment.author.email}
       </div>
       <div>{comment.content}</div>
 

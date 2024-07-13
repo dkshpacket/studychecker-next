@@ -13,7 +13,11 @@ import { categories } from "../page";
 import Link from "next/link";
 import { AdminPanel } from "./admin-panel";
 
-const PostViewPage = async ({ params }) => {
+const PostViewPage: React.FC<{
+  params: {
+    id: string;
+  };
+}> = async ({ params }) => {
   const session = await auth();
 
   if (!session) {
@@ -54,6 +58,7 @@ const PostViewPage = async ({ params }) => {
             {categories[post.category as keyof typeof categories]}
           </Link>
         </div>
+        <div className="text-red-500 ">{post.deleted && "삭제된 게시물"}</div>
         <h1 className="text-xl font-bold mt-2">{post.title}</h1>
         <span className="text-gray-500 mt-2 text-sm">
           {post.author?.name ?? post.author?.email}

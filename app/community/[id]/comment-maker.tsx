@@ -10,13 +10,17 @@ import { Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { SubmitButton } from "@/components/submit-button";
 
-export const CommentMaker = async ({ postId }) => {
+export const CommentMaker: React.FC<{ postId: number }> = async ({
+  postId,
+}) => {
   return (
     <Card className="p-4">
       <form
         action={async (formData) => {
           await submitComment(formData, postId);
-          document.querySelector("#commentcontent").value = "";
+          (
+            document.querySelector("#commentcontent")! as HTMLTextAreaElement
+          ).value = "";
         }}
       >
         <textarea

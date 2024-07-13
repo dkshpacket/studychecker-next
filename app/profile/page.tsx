@@ -18,6 +18,7 @@ const ProfilePage = async () => {
   const posts = await db.post.findMany({
     where: {
       authorId: session.user?.id,
+      deleted: session.user.admin ? undefined : false,
     },
   });
 
@@ -78,7 +79,7 @@ const ProfilePage = async () => {
         <h2 className="text-xl font-bold">최근 게시물</h2>
         <div className="mt-4">
           {posts.map((post) => (
-            <div key={post.id}>{post.title}</div>
+            <div className={session.user.admin &&  post.deleted&& 'text-red-500' } key={post.id}>{post.title}</div>
           ))}
         </div>
       </Card>

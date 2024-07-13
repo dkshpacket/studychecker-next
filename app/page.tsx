@@ -5,7 +5,7 @@ import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import Quests from "./Quests";
 import TimeInfo from "./TimeInfo";
-import Calender from "./Calender";
+import Calandar from "./Calendar";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
@@ -52,7 +52,7 @@ export default async function Home() {
 
         <Quests />
 
-        <Calender />
+        <Calandar />
       </main>
     </main>
   );

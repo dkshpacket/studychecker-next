@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { checkBannedWords } from "@/lib/filter";
 
-export const submitComment = async (formData, postId) => {
+export const submitComment = async (formData: FormData, postId: number) => {
   const session = await auth();
 
   if (!session) throw new Error("로그인이 필요합니다.");
