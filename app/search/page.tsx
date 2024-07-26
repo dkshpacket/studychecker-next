@@ -1,7 +1,10 @@
 const Search = ()=>{
   return (
-    <div>
-      <h1>Search</h1>
+    <div> 
+        단대소고 <br/>
+        단붕이한테 <br/>
+        다털렸죠?<br/>
+        ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
     </div>
   )
 }
